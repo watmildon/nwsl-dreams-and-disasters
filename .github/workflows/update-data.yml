@@ -1,0 +1,48 @@
+name: Update season data
+
+on:
+  schedule:
+    - cron: "0 6 * * *"        # 06:00 UTC daily (~2am ET / 11pm PT): after the last West-coast kickoff has ended
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Fetch and validate season data
+        run: python3 scripts/update_data.py
+
+      - name: Run tests against the new data
+        run: node tests/run.js
+
+      - name: Run the update-script unit tests
+        run: python3 -m unittest discover -s tests
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/season.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update season data ($(date -u +%Y-%m-%d))"
+            git push
+          fi

@@ -1,0 +1,542 @@
+/* NWSL Dreams and Disasters Calculator — single stylesheet, no external assets. */
+
+/* The `hidden` attribute is only a UA-stylesheet rule, so ANY author `display`
+   declaration silently beats it. Several elements here are toggled with
+   `hidden` and also carry `display: flex` (.toast, .tabs, .toolbar), so this
+   has to win outright or they never hide. */
+[hidden] {
+  display: none !important;
+}
+
+:root {
+  --bg: #ffffff;
+  --fg: #1b1f24;
+  --muted: #5b6470;
+  --line: #e2e6ea;
+  --surface: #f6f7f9;
+  --accent: #1a5fb4;
+  --playoff: #1a5fb4;
+  --clinched-bg: #e3f5e8;
+  --clinched-fg: #14532d;
+  --eliminated-bg: #f2f3f5;
+  --eliminated-fg: #5b6470;   /* 5.4:1 on --eliminated-bg; #6b7280 was only 4.35:1 */
+  --focus-bg: #fff7d6;
+  --pick-on-bg: #1b1f24;
+  --pick-on-fg: #ffffff;
+  --radius: 8px;
+  --gap: 12px;
+  --table-max: 820px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.4;
+}
+
+a { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.muted { color: var(--muted); }
+
+/* --- header --------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.site-icon { width: 40px; height: 40px; flex: none; }
+
+.site-header h1 { font-size: 1.1rem; margin: 0; }
+
+.meta { margin: 2px 0 0; font-size: 0.8rem; color: var(--muted); }
+
+/* --- layout --------------------------------------------------------------- */
+
+.layout { max-width: 1200px; margin: 0 auto; padding: 12px; }
+
+h2 { font-size: 1rem; margin: 0 0 8px; }
+
+#status { margin: 16px 0; }
+
+#status.error {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #b3261e;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* --- tabs ----------------------------------------------------------------- */
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+
+.tabs [role="tab"] {
+  flex: 1 1 0;
+  min-height: 44px;
+  padding: 8px 4px;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tabs [role="tab"][aria-selected="true"] {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+}
+
+.panel:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+#pick-count { align-self: center; font-size: 13px; }
+
+/* --- season grid ---------------------------------------------------------- */
+
+.grid-help { font-size: 12px; margin: 0 0 8px; }
+
+.grid-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.grid {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.grid th,
+.grid td {
+  padding: 3px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.grid thead th {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: left;
+  background: var(--surface);
+}
+
+/* The team column stays put while the chips scroll under it. */
+.grid-team {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg);
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  /* Clips a long summary so it cannot spill over the chips. `overflow: hidden`
+     rather than `overflow: clip` + `overflow-clip-margin`, which Safari does not
+     support -- and measuring showed the cell has no horizontal slack anyway
+     (the button is width:100%), so a clip margin could never have saved the
+     focus ring. The ring is drawn inside the button instead; see below. */
+  overflow: hidden;
+  padding: 4px 4px 4px 6px;
+}
+
+.grid tr.focused .grid-team { background: var(--focus-bg); }
+
+.grid-team-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  width: 100%;
+  padding: 2px 0;
+}
+
+.grid-team-top { display: flex; align-items: center; gap: 4px; }
+/* These must outrank the >= 720px `.team-btn .abbr { display: none }` and
+   `.team-btn .logo { width: 24px }` rules, which are equally specific but come
+   later in the file. The grid never shows full team names and its logos must
+   stay inside the narrow sticky column. */
+.grid-team-btn .grid-team-top .logo { width: 18px; height: 18px; object-fit: contain; flex: none; }
+.grid-team-btn.team-btn .abbr { font-size: 12px; font-weight: 700; display: inline; }
+
+/* The sticky team cell clips at its padding box and the button fills it edge to
+   edge, so an outset ring would be cut off. Draw it just inside instead. */
+.grid-team-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.grid-team-sum { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+.grid-cells { padding-left: 4px; }
+.chips { display: flex; gap: 4px; }
+
+.chip {
+  flex: none;
+  width: 38px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.chip-opp { font-size: 10px; font-weight: 600; line-height: 1; white-space: nowrap; }
+.chip-foot { display: flex; gap: 3px; font-size: 9px; line-height: 1; color: var(--muted); }
+.chip-res { font-weight: 800; min-width: 6px; }
+
+/* Every state carries its letter as well as its colour. */
+.chip[data-outcome="W"] { background: var(--clinched-bg); color: var(--clinched-fg); border-color: #9bd1ac; }
+.chip[data-outcome="D"] { background: #e9ebee; color: #3b4249; border-color: #c7ccd3; }
+.chip[data-outcome="L"] { background: #fde8e8; color: #8a1c1c; border-color: #efb3b3; }
+.chip[data-outcome]:not([data-outcome=""]) .chip-foot { color: inherit; }
+.chip.involves-focus { box-shadow: inset 0 0 0 2px var(--accent); }
+
+.grid-empty { padding: 16px 6px; color: var(--muted); }
+
+/* --- toast ---------------------------------------------------------------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  max-width: calc(100vw - 32px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--pick-on-bg);
+  color: var(--pick-on-fg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  font-size: 14px;
+}
+
+.toast button {
+  min-height: 32px;
+  padding: 4px 10px;
+  font: inherit;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+#toast-undo { font-weight: 700; }
+
+/* --- standings table ------------------------------------------------------ */
+
+/* Safety net only: the compact table fits 375 px, so this should never engage.
+   Note it makes .table-wrap the scrollport, which is why the header below is
+   NOT sticky -- a sticky th here would only stick to a box that never scrolls. */
+.table-wrap { overflow-x: auto; }
+
+#standings-table {
+  width: 100%;
+  /* Full width on phones; on a wide screen a 1200px-wide points table is all
+     gutter, so cap it. The grid panel still sizes to its own content. */
+  max-width: var(--table-max);
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+#standings-table th,
+#standings-table td {
+  padding: 6px 4px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+#standings-table th {
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+#standings-table th abbr { text-decoration: none; border: 0; }
+
+#standings-table .num { text-align: right; min-width: 28px; }
+
+.col-rank { width: 28px; white-space: nowrap; }
+
+#standings-table td.team-cell { padding-left: 8px; }
+
+.team-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 2px 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.team-btn .logo { width: 20px; height: 20px; object-fit: contain; flex: none; }
+.team-btn .name { display: none; }
+.team-btn .abbr { font-weight: 600; }
+.team-btn .marker {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Row states. ID-qualified like everything else that touches a table cell, so
+   nothing here can be outranked by the base `#standings-table td` rule if that
+   rule ever grows a background or a colour. Later wins among equals, so a
+   focused row keeps its own tint even when it is also clinched or eliminated. */
+#standings-table tr.clinched td { background: var(--clinched-bg); }
+#standings-table tr.clinched td,
+#standings-table tr.clinched .team-btn { color: var(--clinched-fg); }
+#standings-table tr.eliminated td { background: var(--eliminated-bg); }
+#standings-table tr.eliminated td,
+#standings-table tr.eliminated .team-btn { color: var(--eliminated-fg); }
+#standings-table tr.focused td { background: var(--focus-bg); color: var(--fg); }
+#standings-table tr.focused .team-btn { color: var(--fg); }
+/* The playoff cut. The 1px hairline every other row carries is nowhere near
+   enough to read as "this is the line" -- make it a thick, coloured rule across
+   the whole row, labelled under the rank column.
+   These selectors MUST stay ID-qualified: the base `#standings-table td` rule
+   (specificity 1,0,1) would otherwise win and silently restore the hairline. */
+#standings-table tr.playoff-line.playoff-line-straddled td {
+  border-bottom-style: dashed;
+}
+
+#standings-table tr.playoff-line.playoff-line-straddled td.team-cell::after {
+  /* Literal em dash: a "\2014 " escape would swallow the following space. */
+  content: "Playoff line — tied";
+}
+
+#standings-table tr.playoff-line td {
+  border-bottom: 3px solid var(--playoff);
+  /* Extra room below the row's own text for the label to sit in. */
+  padding-bottom: 20px;
+}
+
+#standings-table tr.playoff-line td.team-cell { position: relative; }
+
+/* The label lives inside this row's bottom padding, just above the rule, so it
+   never overlaps the row beneath it at any width. It hangs off the TEAM cell,
+   starting past that cell's 4px inset team-colour bar -- on the rank cell it
+   spilled across the bar and was sliced in half by it. */
+#standings-table tr.playoff-line td.team-cell::after {
+  content: "Playoff line";
+  position: absolute;
+  left: 8px;
+  bottom: 3px;
+  color: var(--playoff);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.pos-btn {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  color: var(--accent);
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-height: 28px;
+}
+
+.pos-btn:disabled { color: inherit; text-decoration: none; cursor: default; }
+.pos-btn:hover:not(:disabled) { background: var(--surface); }
+
+.bound { color: var(--muted); }
+
+/* Best/Worst render both a long and a compact form; only one is ever shown.
+   .pos-always-long opts out of the compact swap where there is room for the
+   full wording at every width (the focus card). */
+.pos-long { display: none; }
+.pos-short { display: inline; }
+.pos-always-long .pos-long { display: inline; }
+.pos-always-long .pos-short { display: none; }
+
+.legend {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* A legend wider than the thing it annotates reads as a stray paragraph, so
+   pin it to the table above it. */
+.standings .legend { max-width: var(--table-max); }
+
+/* The grid's width depends on how many games are left, so match it the only way
+   that survives that: shrink the panel to the table, and stop the two text
+   blocks from padding that measurement out (width:0 contributes nothing to the
+   intrinsic width, min-width:100% then fills whatever the table settled on). */
+.grid-panel {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.grid-panel .grid-help,
+.grid-panel .legend {
+  width: 0;
+  min-width: 100%;
+}
+
+/* --- focus card ----------------------------------------------------------- */
+
+.focus-card {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.focus-head { display: flex; align-items: center; gap: 10px; }
+.focus-head .logo { width: 40px; height: 40px; object-fit: contain; flex: none; }
+.focus-head h3 { margin: 0; font-size: 1rem; }
+.focus-line { margin: 2px 0 0; font-size: 0.85rem; color: var(--muted); }
+.focus-gap { margin: 6px 0 0; font-size: 0.85rem; color: var(--muted); }
+.focus-verdict { margin: 6px 0 0; font-weight: 600; }
+/* One row that scrolls sideways rather than wrapping: the card is sticky, so
+   every wrapped line costs permanent vertical space on a phone. */
+.focus-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-top: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Fade the right edge so a clipped last button reads as "scrolls sideways". */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent);
+}
+
+.focus-actions::-webkit-scrollbar { display: none; }
+.focus-actions button { flex: none; white-space: nowrap; }
+
+.focus-actions button,
+.toolbar button {
+  min-height: 36px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.focus-actions button[aria-pressed="true"] {
+  background: var(--pick-on-bg);
+  color: var(--pick-on-fg);
+  border-color: var(--pick-on-bg);
+}
+
+/* --- toolbar -------------------------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* --- footer --------------------------------------------------------------- */
+
+.page-foot {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  padding: 12px 12px 28px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.page-foot p { margin: 0; }
+
+/* --- breakpoints ---------------------------------------------------------- */
+
+@media (min-width: 720px) {
+  :root { font-size: 16px; }
+  .tabs [role="tab"] { flex: 0 0 auto; padding: 8px 16px; }
+  .grid-team { width: 72px; min-width: 72px; max-width: 72px; }
+  .chip { width: 48px; height: 44px; }
+  .chip-opp { font-size: 11px; }
+  .chip-foot { font-size: 10px; }
+  .layout { padding: 24px; }
+  .site-header { padding: 16px 24px; }
+  .site-header h1 { font-size: 1.35rem; }
+  .page-foot { padding: 16px 24px 40px; }
+  #standings-table { font-size: 14px; }
+  #standings-table th,
+  #standings-table td { padding: 8px 6px; }
+  #standings-table .num { min-width: 34px; }
+  .pos-long { display: inline; }
+  .pos-short { display: none; }
+  .col-rank { width: 36px; }
+  .team-btn .name { display: inline; }
+  .team-btn .abbr { display: none; }
+  .team-btn .logo { width: 24px; height: 24px; }
+}
+
+@media (max-width: 719px) {
+  /* The focus card is sticky, so its height is a permanent cost on a phone. */
+  .focus-card { padding: 8px; margin-bottom: 8px; }
+  .focus-head .logo { width: 32px; height: 32px; }
+  .focus-line, .focus-gap { font-size: 0.8rem; }
+  .focus-gap { margin-top: 4px; }
+  .focus-verdict { margin-top: 4px; }
+  .focus-actions { margin-top: 6px; }
+  .focus-actions button { min-height: 32px; padding: 4px 8px; }
+
+  /* Full-bleed the grid scroller so its own 8px padding is the only loss:
+     375 - 16 = 359px usable, 60px team column + 4px gap leaves 295px, and
+     7 chips need 7x38 + 6x4 = 290px. */
+  .grid-panel .grid-scroll { margin: 0 -12px; padding: 0 8px; }
+}

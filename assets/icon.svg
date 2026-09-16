@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Calendar body -->
+  <rect x="5" y="8" width="54" height="52" rx="8" fill="#ffffff"/>
+  <!-- Header band -->
+  <path d="M5 16a8 8 0 0 1 8-8h38a8 8 0 0 1 8 8v7H5z" fill="#1a5fb4"/>
+  <!-- Hangers -->
+  <rect x="17" y="2" width="6" height="13" rx="3" fill="#1b1f24"/>
+  <rect x="41" y="2" width="6" height="13" rx="3" fill="#1b1f24"/>
+  <!-- Outline, drawn last so it sits over the band -->
+  <rect x="5" y="8" width="54" height="52" rx="8" fill="none" stroke="#1b1f24" stroke-width="4"/>
+  <text x="32" y="50" text-anchor="middle"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="25" font-weight="800" fill="#1b1f24">D&amp;D</text>
+</svg>

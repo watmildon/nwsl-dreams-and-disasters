@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NWSL Dreams and Disasters Calculator</title>
+<meta name="description" content="Pick the results of the remaining NWSL regular-season games and see the standings, the playoff picture, and every team's best and worst possible finish.">
+<link rel="icon" href="assets/icon.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <img class="site-icon" src="assets/icon.svg" alt="" width="40" height="40">
+  <div>
+    <h1>NWSL Dreams and Disasters Calculator</h1>
+    <!-- The season year is filled in from data/season.json at runtime. -->
+    <p class="meta" id="season-line"></p>
+  </div>
+</header>
+
+<main class="layout">
+  <p id="status" role="status">Loading…</p>
+
+  <div class="tabs" role="tablist" aria-label="Views" id="tabs" hidden>
+    <button type="button" role="tab" id="tab-standings" aria-controls="panel-standings" aria-selected="true" tabindex="0" data-view="standings">Standings</button>
+    <button type="button" role="tab" id="tab-grid" aria-controls="panel-grid" aria-selected="false" tabindex="-1" data-view="grid">Season grid</button>
+  </div>
+
+  <div class="toolbar" id="toolbar" hidden>
+    <button type="button" id="btn-clear" title="Clear every pick">Clear all</button>
+    <button type="button" id="btn-copy" title="Copy a link to this scenario">Copy link</button>
+    <span id="pick-count" class="muted"></span>
+  </div>
+
+  <div id="focus-card" class="focus-card" hidden></div>
+
+  <section role="tabpanel" id="panel-standings" aria-labelledby="tab-standings" tabindex="0" class="panel standings" hidden>
+    <h2 class="sr-only">Standings</h2>
+    <div class="table-wrap">
+      <table id="standings-table">
+        <caption class="sr-only" id="standings-caption">Projected NWSL standings from played games plus your picks, ranked by points.</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="col-rank">#</th>
+            <th scope="col" class="col-team">Team</th>
+            <th scope="col" class="num"><abbr title="Games played">GP</abbr></th>
+            <th scope="col" class="num"><abbr title="Wins">W</abbr></th>
+            <th scope="col" class="num"><abbr title="Draws">D</abbr></th>
+            <th scope="col" class="num"><abbr title="Losses">L</abbr></th>
+            <th scope="col" class="num"><abbr title="Points">Pts</abbr></th>
+            <th scope="col" class="num">Best</th>
+            <th scope="col" class="num">Worst</th>
+          </tr>
+        </thead>
+        <tbody id="standings-body"></tbody>
+      </table>
+    </div>
+    <p class="legend" id="legend"></p>
+  </section>
+
+  <section role="tabpanel" id="panel-grid" aria-labelledby="tab-grid" tabindex="0" class="panel grid-panel" hidden>
+    <h2 class="sr-only">Season grid</h2>
+    <p class="grid-help muted">Tap a game to cycle that team's result: win &rarr; draw &rarr; loss &rarr; clear.</p>
+    <div class="grid-scroll" id="grid-scroll"><table class="grid" id="grid-table" aria-describedby="grid-legend"></table></div>
+    <p class="legend" id="grid-legend"><strong>W</strong> win · <strong>D</strong> draw · <strong>L</strong> loss · blank = not picked · <strong>vs</strong> home / <strong>@</strong> away · rank and points are after your picks</p>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden>
+  <span id="toast-text"></span>
+  <button type="button" id="toast-undo">Undo</button>
+  <button type="button" id="toast-close" aria-label="Dismiss">×</button>
+</div>
+
+<footer class="page-foot">
+  <p>Data as of <time id="last-updated">…</time> · <span id="progress"></span> · Source: ESPN</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

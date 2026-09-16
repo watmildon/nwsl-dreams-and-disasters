@@ -1,0 +1,8 @@
+{
+ "name": "nwsl-dreams-and-disasters",
+ "private": true,
+ "type": "module",
+ "scripts": {
+  "test": "node tests/run.js"
+ }
+}
