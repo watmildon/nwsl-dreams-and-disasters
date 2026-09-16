@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-16T01:54:25Z",
+  "lastUpdated": "2026-09-16T03:29:16Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
@@ -2661,7 +2661,7 @@
    "short": "Bay FC"
   },
   {
-   "color": "#002244",
+   "color": "#33E983",
    "id": "BOS",
    "logo": "assets/logos/BOS-2026.png",
    "name": "Boston Legacy FC",
@@ -2696,7 +2696,7 @@
    "short": "Houston"
   },
   {
-   "color": "#7A2048",
+   "color": "#62CCCA",
    "id": "KC",
    "logo": "assets/logos/KC-2022.png",
    "name": "Kansas City Current",
@@ -2710,7 +2710,7 @@
    "short": "Angel City"
   },
   {
-   "color": "#7B2481",
+   "color": "#C9B4F6",
    "id": "LOU",
    "logo": "assets/logos/LOU-2021.png",
    "name": "Racing Louisville FC",
@@ -2738,14 +2738,14 @@
    "short": "Portland"
   },
   {
-   "color": "#003DA5",
+   "color": "#FC1197",
    "id": "SD",
    "logo": "assets/logos/SD-2022.png",
    "name": "San Diego Wave FC",
    "short": "San Diego"
   },
   {
-   "color": "#862633",
+   "color": "#1F2C67",
    "id": "SEA",
    "logo": "assets/logos/SEA-2024.png",
    "name": "Seattle Reign FC",
@@ -2759,7 +2759,7 @@
    "short": "Utah"
   },
   {
-   "color": "#C8102E",
+   "color": "#EDE939",
    "id": "WAS",
    "logo": "assets/logos/WAS-2023.png",
    "name": "Washington Spirit",

@@ -49,21 +49,21 @@ MIN_GAMES_PER_TEAM = GAMES_PER_TEAM - 2
 # not used anywhere in this project (its colors in particular are unreliable).
 TEAMS = {
     "BAY": ("Bay FC", "Bay FC", "assets/logos/BAY-2024.png", "#1A3C5E"),
-    "BOS": ("Boston Legacy FC", "Boston", "assets/logos/BOS-2026.png", "#002244"),
+    "BOS": ("Boston Legacy FC", "Boston", "assets/logos/BOS-2026.png", "#33E983"),
     "CHI": ("Chicago Stars FC", "Chicago", "assets/logos/CHI-2024.png", "#C8102E"),
     "DEN": ("Denver Summit FC", "Denver", "assets/logos/DEN-2026.png", "#006D6F"),
     "GFC": ("Gotham FC", "Gotham", "assets/logos/NJY-2021.png", "#0C2340"),
     "HOU": ("Houston Dash", "Houston", "assets/logos/HOU-2021.png", "#F26722"),
-    "KC": ("Kansas City Current", "Kansas City", "assets/logos/KC-2022.png", "#7A2048"),
+    "KC": ("Kansas City Current", "Kansas City", "assets/logos/KC-2022.png", "#62CCCA"),
     "LA": ("Angel City FC", "Angel City", "assets/logos/LA-2022.png", "#000000"),
-    "LOU": ("Racing Louisville FC", "Louisville", "assets/logos/LOU-2021.png", "#7B2481"),
+    "LOU": ("Racing Louisville FC", "Louisville", "assets/logos/LOU-2021.png", "#C9B4F6"),
     "NC": ("North Carolina Courage", "North Carolina", "assets/logos/NC-2017.png", "#003DA5"),
     "ORL": ("Orlando Pride", "Orlando", "assets/logos/ORL-2016.png", "#633492"),
     "POR": ("Portland Thorns FC", "Portland", "assets/logos/POR-2018.png", "#A4162F"),
-    "SD": ("San Diego Wave FC", "San Diego", "assets/logos/SD-2022.png", "#003DA5"),
-    "SEA": ("Seattle Reign FC", "Seattle", "assets/logos/SEA-2024.png", "#862633"),
+    "SD": ("San Diego Wave FC", "San Diego", "assets/logos/SD-2022.png", "#FC1197"),
+    "SEA": ("Seattle Reign FC", "Seattle", "assets/logos/SEA-2024.png", "#1F2C67"),
     "UTA": ("Utah Royals FC", "Utah", "assets/logos/UTA-2024.png", "#FFD700"),
-    "WAS": ("Washington Spirit", "Washington", "assets/logos/WAS-2023.png", "#C8102E"),
+    "WAS": ("Washington Spirit", "Washington", "assets/logos/WAS-2023.png", "#EDE939"),
 }
 
 # ESPN status.type.name -> normalised status.  `played` means decided; `scheduled`
