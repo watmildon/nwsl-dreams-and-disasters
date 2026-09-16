@@ -28,6 +28,7 @@ const state = {
   teamsById: {},
   gamesById: {},
   gridOrder: [],
+  scope: null,
   picks: {},
   focus: null,
   view: DEFAULT_VIEW,
@@ -70,13 +71,18 @@ async function boot() {
   // so rows never re-sort under the user's finger while they tap chips.
   state.gridOrder = computeStandings(data.teams, data.games, {}).rows.map((r) => r.id);
   const teamIds = data.teams.map((t) => t.id);
+  // What a pick index in a shared link means: this season, these teams.
+  state.scope = { year: data.season.year, teamIds };
 
   // A link wins over whatever this browser remembers; otherwise fall back to
   // localStorage.  Either way, stale picks (games now played) are dropped.
-  const fromHash = loadHash(data.games, teamIds);
+  const fromHash = loadHash(data.games, state.scope);
   const hasHashState = Object.keys(fromHash.picks).length > 0 || fromHash.focus;
   // A view in the link wins, then the remembered one, then the default.
   const initialView = [fromHash.view, loadView(), DEFAULT_VIEW].find((v) => VIEWS.includes(v));
+  // Before the guard below: a link whose picks have ALL been overtaken carries
+  // no state to apply, and is exactly the link most worth explaining.
+  noteLinkDrift(fromHash);
   if (hasHashState) {
     state.picks = prunePicks(fromHash.picks, data.games);
     state.focus = fromHash.focus;
@@ -100,7 +106,7 @@ function setView(view, { persist = true } = {}) {
   renderTabs(view);
   if (persist) {
     saveView(view);
-    saveHash({ picks: state.picks, focus: state.focus }, state.data.games, view);
+    saveHash({ picks: state.picks, focus: state.focus }, state.data.games, view, state.scope);
   }
 }
 
@@ -172,7 +178,7 @@ function update() {
   if (gridScroll) gridScroll.scrollLeft = left;
 
   saveLocal(data.season.year, state.picks);
-  saveHash({ picks: state.picks, focus: state.focus }, data.games, state.view);
+  saveHash({ picks: state.picks, focus: state.focus }, data.games, state.view, state.scope);
 }
 
 function setPick(gameId, value) {
@@ -226,6 +232,46 @@ function dismissToast() {
 function toggleFocus(team, refocusSelector) {
   state.focus = state.focus === team ? null : team;
   updateAndRefocus(refocusSelector);
+}
+
+/**
+ * A shared link describes games that had not been played when it was made, so
+ * time can change what it means. Say so rather than letting the numbers quietly
+ * disagree with what its author saw. Called on every link read, including the
+ * ones that turn out to carry nothing -- it clears itself when there is nothing
+ * to report.
+ */
+function noteLinkDrift(fromHash) {
+  const el = document.getElementById("link-notice");
+  const text = document.getElementById("link-notice-text");
+  if (!el || !text) return;
+
+  const played = fromHash.overtaken || 0;
+  const missing = fromHash.unknown || 0;
+  const parts = [];
+
+  if (fromHash.mismatch) {
+    parts.push("This link doesn't match this season's schedule. Its picks were not applied.");
+  } else {
+    if (played) {
+      parts.push(
+        `${played} game${played === 1 ? "" : "s"} in this link ${played === 1 ? "has" : "have"} been ` +
+          `played since it was made. The real result${played === 1 ? "" : "s"} replaced those picks.`
+      );
+    }
+    if (missing) {
+      parts.push(
+        `${missing} pick${missing === 1 ? "" : "s"} named a game that is not in this season's schedule.`
+      );
+    }
+  }
+
+  if (!parts.length) {
+    el.hidden = true;
+    return;
+  }
+  text.textContent = parts.join(" ");
+  el.hidden = false;
 }
 
 /** Every not-yet-played game involving `team`, picked or not. */
@@ -326,6 +372,10 @@ function wireEvents() {
     }
   });
 
+  document.getElementById("link-notice-close").addEventListener("click", () => {
+    document.getElementById("link-notice").hidden = true;
+  });
+
   // Toast.
   document.getElementById("toast-undo").addEventListener("click", undoBulk);
   document.getElementById("toast-close").addEventListener("click", dismissToast);
@@ -381,10 +431,12 @@ function wireEvents() {
   // replaceState, which does not fire hashchange, so this only ever responds to
   // a real navigation (a paste, back/forward, or following a link).
   window.addEventListener("hashchange", () => {
-    const teamIds = state.data.teams.map((t) => t.id);
-    const fromHash = loadHash(state.data.games, teamIds);
+    const fromHash = loadHash(state.data.games, state.scope);
     // A view in the link applies even when it carries no picks (#v=grid).
     if (VIEWS.includes(fromHash.view)) setView(fromHash.view);
+    // Before the early return, so the notice is both shown when the new link
+    // needs one and cleared when it does not.
+    noteLinkDrift(fromHash);
     // Same guard as boot(): an empty fragment carries no scenario, so treat it
     // as "nothing to apply" rather than as an instruction to erase everything.
     if (!Object.keys(fromHash.picks).length && !fromHash.focus) return;

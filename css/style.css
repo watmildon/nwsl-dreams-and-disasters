@@ -487,6 +487,39 @@ h2 { font-size: 1rem; margin: 0 0 8px; }
   margin-bottom: 12px;
 }
 
+/* --- shared-link notice --------------------------------------------------- */
+
+.link-notice {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 13px;
+}
+
+.link-notice span { flex: 1; }
+
+.link-notice button {
+  flex: none;
+  min-width: 28px;
+  min-height: 28px;
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.link-notice button:hover { background: var(--bg); }
+
 /* --- footer --------------------------------------------------------------- */
 
 .page-foot {

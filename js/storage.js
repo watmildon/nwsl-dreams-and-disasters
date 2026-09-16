@@ -64,10 +64,11 @@ export function saveView(view) {
  * URLSearchParams, so the extra param is invisible to it and the hash format
  * for picks and focus is unchanged. The caller validates the view id.
  *
- * @returns {{picks: Object, focus: (string|null), view: (string|null)}}
+ * @returns {{picks: Object, focus: (string|null), view: (string|null),
+ *             overtaken: number, unknown: number, mismatch: boolean}}
  */
-export function loadHash(games, teamIds) {
-  const state = decodeHash(location.hash, games, teamIds);
+export function loadHash(games, scope) {
+  const state = decodeHash(location.hash, games, scope);
   const params = new URLSearchParams(String(location.hash || "").replace(/^#/, ""));
   return { ...state, view: params.get("v") };
 }
@@ -76,8 +77,8 @@ export function loadHash(games, teamIds) {
  * Mirror the state into the URL without adding history entries.  With nothing
  * picked and no focus the hash is removed entirely, so the bare URL stays clean.
  */
-export function saveHash(state, games, view) {
-  let body = encodeHash(state, games);
+export function saveHash(state, games, view, scope) {
+  let body = encodeHash(state, games, scope);
   // The default view is implied, so a plain link stays plain.
   if (view && view !== DEFAULT_VIEW) body += (body ? "&" : "") + "v=" + encodeURIComponent(view);
   try {

@@ -102,15 +102,66 @@ are suppressed.
 
 ## Sharing and persistence
 
-Your picks are saved in this browser (`localStorage`) and mirrored into the URL
-hash, both keyed by ESPN event id. The hash spells each pick out in full —
-`#p=401854084H.401854085D&t=SEA` — rather than using a positional code, because
-positions are *not* stable: ESPN re-issues a postponed fixture under a brand-new
-(larger) event id, so the game set can change while the count stays at 240, and
-a positional pick would silently slide onto a neighbouring game. Naming the id
-makes that impossible: a pick in a link either matches a real, still-unplayed
-game or is dropped. Unknown ids, malformed tokens and picks on games that have
-since been played are all ignored.
+Your picks are saved in this browser (`localStorage`, keyed by ESPN event id)
+and mirrored into the URL hash, which looks like `#s=fXGqvlEvgj52&t=SEA`.
+
+A pick in the hash is identified by its **fixture** — the ordered `(home, away)`
+pair — not by the ESPN event id. The season is a double round robin, so each
+ordered pair is played exactly once (verified: 240 games, 240 distinct pairs),
+and the update script's dedupe step keeps it that way. That matters because
+event ids are *not* stable: ESPN re-issues a postponed fixture under a brand-new
+id, and a link keyed by id loses those picks. A link keyed by fixture keeps them.
+
+Each pick costs one 8-bit pair index plus a 2-bit result, after a 16-bit check
+value. The bits are packed tight and base64url-encoded. Comparing payload with
+payload, a full 50-game slate is 87 characters against the old explicit-id
+format's 549, and a single pick is 6 against 10; as whole hashes including
+`&t=SEA`, 95 against 557. A zero result code is never emitted, so the zero
+padding in the final byte terminates the stream. Corrupt or truncated payloads
+decode to fewer picks rather than throwing.
+
+The check value covers the season scope (year plus the sorted team ids) *and*
+the pick bytes, so one test rejects two different ways a link can be wrong:
+
+- **Wrong season.** The same 16 clubs play the same 240 ordered pairs every
+  year, so without this a 2026 link would apply cleanly — and wrongly — to the
+  2027 schedule. Renaming a club, or adding one, is caught the same way.
+  `localStorage` is already year-scoped (`nwsl-calc-<year>`); this is the
+  equivalent guard for links.
+- **Damage in transit.** A mangled character otherwise decodes into a different
+  set of perfectly valid picks, since with 16 teams almost every 8-bit value
+  names a real fixture. Over 99% of single-character corruptions are now
+  rejected outright (measured in `tests/picks.test.js`).
+
+Either way the link is refused whole rather than misapplied, and the page says
+so.
+
+Links written by the build before this change used an explicit
+`#p=401854084H.401854085D` form. Those are still decoded, so old links keep
+working; nothing writes that format any more.
+
+### What happens as the data moves underneath a link
+
+A shared link describes games that had not been played when it was made, so time
+changes what it means:
+
+- **A picked game has since been played.** The real result wins — the pick is
+  dropped, because reality is not a scenario. The page counts these and says so
+  once, above the table: *"3 games in this link have been played since it was
+  made. The real results replaced those picks."* Without that line the link would
+  quietly show different standings than its author saw, which is the failure mode
+  worth avoiding.
+- **A picked fixture was re-issued under a new id.** The pick survives, because
+  the hash names the fixture, not the id.
+- **A picked fixture vanished from the schedule.** The pick is dropped and
+  counted as `unknown`, which the notice also reports — under fixture keying an
+  unknown pair means a genuine mismatch between the link and the schedule.
+- **The link is for another season, or arrived damaged.** The check value fails,
+  no picks are applied at all, and the notice says so.
+- **Unpicked games were played.** Nothing is dropped and no notice appears. The
+  link still says exactly what its author meant — *if these games go this way* —
+  and the newer results are correctly folded in. This is the desired behaviour,
+  not drift.
 
 `Copy link` puts the current URL on your clipboard, and pasting a scenario link
 into an already-open tab reloads that scenario. A link that carries picks wins
