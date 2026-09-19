@@ -1608,13 +1608,13 @@
   },
   {
    "away": "KC",
-   "awayScore": null,
+   "awayScore": 0,
    "date": "2026-09-19T02:00:00Z",
    "home": "SD",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854003",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Snapdragon Stadium"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-17T10:40:47Z",
+  "lastUpdated": "2026-09-19T09:58:38Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
