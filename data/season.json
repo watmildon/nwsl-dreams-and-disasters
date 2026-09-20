@@ -1619,24 +1619,24 @@
   },
   {
    "away": "POR",
-   "awayScore": null,
+   "awayScore": 4,
    "date": "2026-09-19T20:00:00Z",
    "home": "ORL",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854004",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Inter&Co Stadium"
   },
   {
    "away": "GFC",
-   "awayScore": null,
+   "awayScore": 2,
    "date": "2026-09-19T22:30:00Z",
    "home": "NC",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854005",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "WakeMed Soccer Park"
   },
   {
@@ -2510,13 +2510,13 @@
   },
   {
    "away": "SEA",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-20T00:45:00Z",
    "home": "DEN",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854085",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Centennial Stadium"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-19T09:58:38Z",
+  "lastUpdated": "2026-09-20T10:18:41Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
