@@ -1785,7 +1785,7 @@
   {
    "away": "LA",
    "awayScore": null,
-   "date": "2026-10-04T16:00:00Z",
+   "date": "2026-10-04T17:00:00Z",
    "home": "GFC",
    "homeScore": null,
    "id": "401854019",
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-21T11:29:54Z",
+  "lastUpdated": "2026-09-22T10:36:37Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
