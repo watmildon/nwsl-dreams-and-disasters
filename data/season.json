@@ -1674,24 +1674,24 @@
   },
   {
    "away": "SD",
-   "awayScore": null,
+   "awayScore": 2,
    "date": "2026-09-25T22:30:00Z",
    "home": "LOU",
-   "homeScore": null,
+   "homeScore": 0,
    "id": "401854009",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Lynn Family Stadium"
   },
   {
    "away": "CHI",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-26T00:00:00Z",
    "home": "GFC",
-   "homeScore": null,
+   "homeScore": 3,
    "id": "401854010",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Red Bull Arena"
   },
   {
@@ -2532,13 +2532,13 @@
   },
   {
    "away": "BOS",
-   "awayScore": null,
+   "awayScore": 0,
    "date": "2026-09-26T00:30:00Z",
    "home": "SEA",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854087",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Lumen Field"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-22T10:36:37Z",
+  "lastUpdated": "2026-09-26T10:31:46Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
