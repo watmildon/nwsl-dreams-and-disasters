@@ -1696,24 +1696,24 @@
   },
   {
    "away": "LA",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-26T22:30:00Z",
    "home": "WAS",
-   "homeScore": null,
+   "homeScore": 0,
    "id": "401854011",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Audi Field"
   },
   {
    "away": "HOU",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-27T00:45:00Z",
    "home": "POR",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854012",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Providence Park"
   },
   {
@@ -2543,13 +2543,13 @@
   },
   {
    "away": "DEN",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-26T16:30:00Z",
    "home": "KC",
-   "homeScore": null,
+   "homeScore": 4,
    "id": "401854088",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "CPKC Stadium"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-26T10:31:46Z",
+  "lastUpdated": "2026-09-27T11:03:22Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
