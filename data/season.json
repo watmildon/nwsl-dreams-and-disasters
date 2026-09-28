@@ -1718,24 +1718,24 @@
   },
   {
    "away": "ORL",
-   "awayScore": null,
+   "awayScore": 3,
    "date": "2026-09-27T21:00:00Z",
    "home": "BAY",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854013",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "PayPal Park"
   },
   {
    "away": "NC",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-09-27T23:00:00Z",
    "home": "UTA",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854014",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "America First Field"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-27T11:03:22Z",
+  "lastUpdated": "2026-09-28T12:23:47Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
