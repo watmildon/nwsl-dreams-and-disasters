@@ -97,7 +97,7 @@
    "id": "401853865",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "LA",
@@ -240,7 +240,7 @@
    "id": "401853878",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "LA",
@@ -339,7 +339,7 @@
    "id": "401853887",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "NC",
@@ -471,7 +471,7 @@
    "id": "401853899",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "BAY",
@@ -768,7 +768,7 @@
    "id": "401853926",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "NC",
@@ -1175,7 +1175,7 @@
    "id": "401853963",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "NC",
@@ -1241,7 +1241,7 @@
    "id": "401853969",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "CHI",
@@ -1406,7 +1406,7 @@
    "id": "401853984",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "LOU",
@@ -1692,7 +1692,7 @@
    "id": "401854010",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "LA",
@@ -1791,7 +1791,7 @@
    "id": "401854019",
    "rawStatus": "STATUS_SCHEDULED",
    "status": "scheduled",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "WAS",
@@ -1956,7 +1956,7 @@
    "id": "401854034",
    "rawStatus": "STATUS_SCHEDULED",
    "status": "scheduled",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "CHI",
@@ -2055,7 +2055,7 @@
    "id": "401854043",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "UTA",
@@ -2154,7 +2154,7 @@
    "id": "401854052",
    "rawStatus": "STATUS_FULL_TIME",
    "status": "played",
-   "venue": "Red Bull Arena"
+   "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "DEN",
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-09-28T12:23:47Z",
+  "lastUpdated": "2026-09-30T11:36:20Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
