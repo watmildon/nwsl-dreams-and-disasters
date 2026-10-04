@@ -1762,24 +1762,24 @@
   },
   {
    "away": "UTA",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-10-03T20:00:00Z",
    "home": "LOU",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854017",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Lynn Family Stadium"
   },
   {
    "away": "BAY",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-10-03T22:30:00Z",
    "home": "KC",
-   "homeScore": null,
+   "homeScore": 5,
    "id": "401854018",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "CPKC Stadium"
   },
   {
@@ -2554,13 +2554,13 @@
   },
   {
    "away": "BOS",
-   "awayScore": null,
-   "date": "2026-10-04T00:45:00Z",
+   "awayScore": 4,
+   "date": "2026-10-04T00:52:00Z",
    "home": "POR",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854089",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Providence Park"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-10-03T10:49:49Z",
+  "lastUpdated": "2026-10-04T11:32:08Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
