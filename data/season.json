@@ -1784,24 +1784,24 @@
   },
   {
    "away": "LA",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-10-04T17:00:00Z",
    "home": "GFC",
-   "homeScore": null,
+   "homeScore": 1,
    "id": "401854019",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Sports Illustrated Stadium"
   },
   {
    "away": "WAS",
-   "awayScore": null,
+   "awayScore": 3,
    "date": "2026-10-04T23:00:00Z",
    "home": "HOU",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854020",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Shell Energy Stadium"
   },
   {
@@ -2565,13 +2565,13 @@
   },
   {
    "away": "DEN",
-   "awayScore": null,
+   "awayScore": 3,
    "date": "2026-10-04T20:00:00Z",
    "home": "CHI",
-   "homeScore": null,
+   "homeScore": 0,
    "id": "401854090",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Northwestern Medicine Field at Martin Stadium"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-10-04T11:32:08Z",
+  "lastUpdated": "2026-10-05T13:04:07Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
