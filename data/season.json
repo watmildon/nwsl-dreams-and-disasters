@@ -2576,13 +2576,13 @@
   },
   {
    "away": "LOU",
-   "awayScore": null,
+   "awayScore": 1,
    "date": "2026-10-17T00:00:00Z",
    "home": "BOS",
-   "homeScore": null,
+   "homeScore": 2,
    "id": "401854091",
-   "rawStatus": "STATUS_SCHEDULED",
-   "status": "scheduled",
+   "rawStatus": "STATUS_FULL_TIME",
+   "status": "played",
    "venue": "Gillette Stadium"
   },
   {
@@ -2643,7 +2643,7 @@
  ],
  "season": {
   "gamesPerTeam": 30,
-  "lastUpdated": "2026-10-05T13:04:07Z",
+  "lastUpdated": "2026-10-17T09:54:51Z",
   "league": "NWSL",
   "playoffSpots": 8,
   "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?dates=2026&limit=1000",
